@@ -3,26 +3,20 @@ import { square } from '../square.js';
 
 const router = express.Router();
 
-/**
- * GET /api/catalog
- * Returns a simplified product list derived from Square Catalog API.
- * Assumes items are created in Square with variations (each with price).
- */
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   try {
     const { result } = await square.catalogApi.listCatalog(undefined, 'ITEM,ITEM_VARIATION,IMAGE');
-    const objects = result.objects || [];
+    const objs = result.objects || [];
 
-    const items = objects.filter(o => o.type === 'ITEM');
-    const images = objects.filter(o => o.type === 'IMAGE');
-    const variations = objects.filter(o => o.type === 'ITEM_VARIATION');
+    const items = objs.filter(o => o.type === 'ITEM');
+    const images = objs.filter(o => o.type === 'IMAGE');
+    const variations = objs.filter(o => o.type === 'ITEM_VARIATION');
 
     const imageMap = new Map(images.map(img => [img.id, img.imageData?.url]));
     const varByItem = variations.reduce((acc, v) => {
       const itemId = v.itemVariationData?.itemId;
       if (!itemId) return acc;
-      acc[itemId] = acc[itemId] || [];
-      acc[itemId].push(v);
+      (acc[itemId] ||= []).push(v);
       return acc;
     }, {});
 
@@ -38,7 +32,7 @@ router.get('/', async (req, res) => {
         variationId: firstVar?.id || null,
         priceMoney: price || null
       };
-    }).filter(x => !!x.variationId && !!x.priceMoney);
+    }).filter(x => x.variationId && x.priceMoney);
 
     res.json({ items: normalized });
   } catch (err) {

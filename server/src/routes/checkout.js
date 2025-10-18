@@ -2,12 +2,6 @@ import express from 'express';
 import { square, LOCATION_ID } from '../square.js';
 import { v4 as uuidv4 } from 'uuid';
 
-/**
- * POST /api/checkout
- * Body: { items: [{ variationId, name, quantity, basePriceMoney:{amount,currency} }], redirectUrl? }
- * Creates an Order + Payment Link (Square-hosted checkout) and returns the link URL.
- * This supports a custom on-site cart managed in the frontend.
- */
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -21,13 +15,10 @@ router.post('/', async (req, res) => {
       locationId: LOCATION_ID,
       lineItems: items.map((it) => ({
         quantity: String(it.quantity || 1),
-        catalogObjectId: it.variationId, // preferred; price will come from Catalog
-        // If you need to override price, use basePriceMoney instead:
-        // basePriceMoney: it.basePriceMoney
+        catalogObjectId: it.variationId
       }))
     };
 
-    // Create payment link
     const { result } = await square.checkoutApi.createPaymentLink({
       idempotencyKey: uuidv4(),
       order,

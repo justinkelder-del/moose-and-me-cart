@@ -3,11 +3,8 @@ import { Client, Environment } from '@square/square';
 
 dotenv.config();
 
-// Validate required env vars
 ['SQUARE_ACCESS_TOKEN','SQUARE_LOCATION_ID','SQUARE_ENV'].forEach((k)=>{
-  if(!process.env[k]) {
-    console.warn(`[WARN] Missing ${k} in environment. See .env.example.`);
-  }
+  if(!process.env[k]) console.warn(`[WARN] Missing ${k} in environment.`);
 });
 
 const env = (process.env.SQUARE_ENV || 'sandbox').toLowerCase() === 'production'
