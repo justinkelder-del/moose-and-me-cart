@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { Client, Environment } from '@square/square';
+import { Client, Environment } from 'square';
 
 dotenv.config();
 
