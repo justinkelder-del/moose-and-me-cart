@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Cart — Moose & Me</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand"><span class="brand-mark"></span><span class="brand-name">Moose &amp; Me Bakery</span></div>
+      <nav><a href="./index.html" class="btn">Continue Shopping</a></nav>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container narrow">
+      <h1 class="section-title">Your Cart</h1>
+      <div id="cartList" class="cart-list"></div>
+      <div class="cart-summary">
+        <div>Total: <strong id="cartTotal">$0.00</strong></div>
+        <button id="checkoutBtn" class="btn btn-accent">Checkout</button>
+      </div>
+      <p class="muted">Checkout is securely hosted by Square.</p>
+    </div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
