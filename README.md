@@ -8,8 +8,8 @@ This package includes the corrected Square SDK dependency and `.npmrc` to avoid 
 - Start: `node server.js`
 - Env vars:
   - `NODE_ENV=production`
-  - `SQUARE_ENV=sandbox` (or `production` later)
-  - `SQUARE_ACCESS_TOKEN=...`
-  - `SQUARE_LOCATION_ID=...`
+  - `SQUARE_ENV=sandbox` 
+  - `SQUARE_ACCESS_TOKEN=EAAAl9oN7azg-sLYbIJVWAjw9vAoc6DtK9pNSIH2SiXNHS4VqDoWfHnXofNSPrvS`
+  - `SQUARE_LOCATION_ID=L24JMZ3T3M9QJ`
 
 Generated 2025-10-18.
