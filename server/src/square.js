@@ -1,19 +1,17 @@
 import dotenv from 'dotenv';
-import { Client, Environment } from 'square';
+import Square from 'square';              // ✅ fixed import for CommonJS module
+const { Client, Environment } = Square;   // ✅ destructure from default export
 
 dotenv.config();
 
-['SQUARE_ACCESS_TOKEN','SQUARE_LOCATION_ID','SQUARE_ENV'].forEach((k)=>{
-  if(!process.env[k]) console.warn(`[WARN] Missing ${k} in environment.`);
-});
-
-const env = (process.env.SQUARE_ENV || 'sandbox').toLowerCase() === 'production'
-  ? Environment.Production
-  : Environment.Sandbox;
+const env =
+  (process.env.SQUARE_ENV || 'sandbox').toLowerCase() === 'production'
+    ? Environment.Production
+    : Environment.Sandbox;
 
 export const square = new Client({
   environment: env,
-  accessToken: process.env.SQUARE_ACCESS_TOKEN
+  accessToken: process.env.SQUARE_ACCESS_TOKEN,
 });
 
 export const LOCATION_ID = process.env.SQUARE_LOCATION_ID;
